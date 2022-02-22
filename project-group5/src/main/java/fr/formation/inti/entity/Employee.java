@@ -35,7 +35,7 @@ public class Employee {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "idEmployee", unique = true, nullable = false)
+	@Column(name = "id_employee", unique = true, nullable = false)
 	public Integer getIdEmployee() {
 		return idEmployee;
 	}
@@ -52,7 +52,7 @@ public class Employee {
 		this.gender = gender;
 	}
 	
-	@Column(name = "lastName", nullable = false, length = 20)
+	@Column(name = "last_name", nullable = false, length = 20)
 	public String getLastName() {
 		return lastName;
 	}
@@ -61,7 +61,7 @@ public class Employee {
 	}
 	
 	
-	@Column(name = "firstName", nullable = false, length = 20)
+	@Column(name = "first_name", nullable = false, length = 20)
 	public String getFirstName() {
 		return firstName;
 	}
@@ -70,7 +70,7 @@ public class Employee {
 	}
 	
 	@Temporal(TemporalType.DATE)
-	@Column(name = "startDate", nullable = false, length = 10)
+	@Column(name = "start_date", nullable = false, length = 10)
 	public Date getStartDate() {
 		return startDate;
 	}
@@ -94,7 +94,7 @@ public class Employee {
 		this.category = category;
 	}
 	
-	@Column(name = "phoneNumber")
+	@Column(name = "phone_number")
 	public String getPhoneNumber() {
 		return phoneNumber;
 	}
@@ -103,7 +103,7 @@ public class Employee {
 	}
 	
 	@ManyToOne
-	@JoinColumn(name = "superiorID")
+	@JoinColumn(name = "superior_id")
 	public Employee getManager() {
 		return manager;
 	}
@@ -112,7 +112,7 @@ public class Employee {
 	}
 	
 	@ManyToOne
-	@JoinColumn(name = "Salon_idSalon")
+	@JoinColumn(name = "id_salon")
 	public Salon getSalon() {
 		return salon;
 	}

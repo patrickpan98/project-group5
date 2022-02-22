@@ -20,7 +20,7 @@ import javax.persistence.Table;
  */
 
 @Entity
-@Table(name = "rdv")
+@Table(name = "rdv_salon")
 public class RDV{
 
 	private Integer id;
@@ -32,10 +32,7 @@ public class RDV{
 	private Double satisfactionRate;
 	private String comment;
 	
-//	@ManyToOne
-//	@JoinColumn(name = "id", nullable = true)
-//	private Employee emp;
-	
+	private Employee emp;
 	
 	private Client client;
 	
@@ -44,11 +41,19 @@ public class RDV{
 		
 	}
 	
-
 	
+	public RDV(LocalDateTime start, LocalDateTime end, String state) {
+		super();
+		this.start = start;
+		this.end = end;
+		this.state = state;
+	}
+
+
+
 	@Id
 	@GeneratedValue(strategy = IDENTITY)
-	@Column(name = "idRDV", unique = true, nullable = false)
+	@Column(name = "id_rdv", unique = true, nullable = false)
 	public Integer getId() {
 		return id;
 	}
@@ -57,6 +62,7 @@ public class RDV{
 		this.id = rdvId;
 	}
 
+	
 	@Column(name = "start")
 	public LocalDateTime getStart() {
 		return start;
@@ -93,7 +99,7 @@ public class RDV{
 		this.state = state;
 	}
 
-	@Column(name = "satisfactionRate")
+	@Column(name = "satisfaction_rate")
 	public Double getSatisfactionRate() {
 		return satisfactionRate;
 	}
@@ -111,14 +117,21 @@ public class RDV{
 		this.comment = comment;
 	}
 	
-	
 	@ManyToOne
-	@JoinColumn(name = "client_idClient", nullable = true)
+	@JoinColumn(name = "id_employee", nullable = true)
+	public Employee getEmp() {
+		return emp;
+	}
+
+	public void setEmp(Employee emp) {
+		this.emp = emp;
+	}
+
+	@ManyToOne
+	@JoinColumn(name = "id_client", nullable = true)
 	public Client getClient() {
 		return client;
 	}
-
-
 
 	public void setClient(Client client) {
 		this.client = client;

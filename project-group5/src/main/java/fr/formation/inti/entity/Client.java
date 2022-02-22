@@ -27,7 +27,7 @@ public class Client {
 	
 	@Id
 	@GeneratedValue(strategy = IDENTITY)
-	@Column(name = "idClient", unique = true, nullable = false)
+	@Column(name = "id_client", unique = true, nullable = false)
 	public Integer getIdClient() {
 		return idClient;
 	}
@@ -44,7 +44,7 @@ public class Client {
 		this.gender = gender;
 	}
 	
-	@Column(name = "firstName")
+	@Column(name = "first_name")
 	public String getFirstName() {
 		return firstName;
 	}
@@ -52,7 +52,7 @@ public class Client {
 		this.firstName = firstName;
 	}
 	
-	@Column(name = "lastName")
+	@Column(name = "last_name")
 	public String getLastName() {
 		return lastName;
 	}
@@ -60,7 +60,7 @@ public class Client {
 		this.lastName = lastName;
 	}
 	
-	@Column(name = "birthDay")
+	@Column(name = "birth_date")
 	public Date getBirthDay() {
 		return birthDay;
 	}
@@ -68,7 +68,7 @@ public class Client {
 		this.birthDay = birthDay;
 	}
 	
-	@Column(name = "phoneNumber")
+	@Column(name = "phone_number")
 	public String getPhoneNumber() {
 		return phoneNumber;
 	}

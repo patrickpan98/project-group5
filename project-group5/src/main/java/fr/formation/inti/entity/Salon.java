@@ -32,7 +32,7 @@ public class Salon {
 	
 	@Id
 	@GeneratedValue(strategy = IDENTITY)
-	@Column(name = " idSalon", unique= true, nullable= false)
+	@Column(name = " id_salon", unique= true, nullable= false)
 	public Integer getIdSalon() {
 		return idSalon;
 	}
@@ -41,7 +41,7 @@ public class Salon {
 		this.idSalon = idSalon;
 	}
 	
-	@Column(  name = "name", nullable = false, length = 20)
+	@Column(name = "name", nullable = false, length = 20)
 	public String getName() {
 		return name;
 	}
@@ -51,7 +51,7 @@ public class Salon {
 	}
 	
 	@Temporal(TemporalType.DATE)
-	@Column(name = "startDate", nullable = false, length = 10)
+	@Column(name = "start_date", nullable = false, length = 10)
 	public Date getStartDate() {
 		return startDate;
 	}
@@ -78,7 +78,7 @@ public class Salon {
 		this.city = city;
 	}
 	
-	@Column(name ="postalCode")
+	@Column(name ="postal_code")
 	public String getPostalCode() {
 		return postalCode;
 	}

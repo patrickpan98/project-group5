@@ -28,7 +28,7 @@ public class Role {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "idRole")
+	@Column(name = "id_role")
 	public Integer getIdRole() {
 		return idRole;
 	}
@@ -48,8 +48,8 @@ public class Role {
 	
 	
 	@ManyToMany
-	@JoinTable(name = "user_has_role", joinColumns = @JoinColumn(name = "idRole"),
-				inverseJoinColumns = @JoinColumn(name = "idUser"))
+	@JoinTable(name = "user_has_role", joinColumns = @JoinColumn(name = "id_role"),
+				inverseJoinColumns = @JoinColumn(name = "id_user"))
 	public List<User> getUsers() {
 		return users;
 	}

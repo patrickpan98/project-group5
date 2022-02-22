@@ -34,7 +34,7 @@ public class User {
 	
 	@Id
 	@GeneratedValue(strategy = IDENTITY)
-	@Column(name = "idUser", unique = true, nullable = false)
+	@Column(name = "id_user", unique = true, nullable = false)
 	public Integer getIdUser() {
 		return idUser;
 	}
@@ -71,7 +71,7 @@ public class User {
 	}
 	
 	@OneToOne
-	@JoinColumn(name="idEmployee", nullable=true)
+	@JoinColumn(name="id_employee", nullable=true)
 	public Employee getEmp() {
 		return emp;
 	}
@@ -81,7 +81,7 @@ public class User {
 	}
 	
 	@OneToOne
-	@JoinColumn(name="idClient", nullable=true)
+	@JoinColumn(name="id_client", nullable=true)
 	public Client getClient() {
 		return client;
 	}
@@ -91,8 +91,8 @@ public class User {
 	}
 	
 	@ManyToMany
-	@JoinTable(name = "user_has_role", joinColumns = @JoinColumn(name = "idUser"),
-				inverseJoinColumns = @JoinColumn(name = "idRole"))
+	@JoinTable(name = "user_has_role", joinColumns = @JoinColumn(name = "id_user"),
+				inverseJoinColumns = @JoinColumn(name = "id_role"))
 	public List<Role> getRoles() {
 		return roles;
 	}
