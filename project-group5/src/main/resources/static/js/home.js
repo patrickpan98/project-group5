@@ -31,7 +31,7 @@ $(function() {
     $("#register_form").click(function() {
         $(".social_login").hide();
         $(".user_register").show();
-        $(".header_title").text('Register');
+        //$(".header_title").text('Register');
         return false;
     });
 
@@ -40,7 +40,7 @@ $(function() {
         $(".user_login").hide();
         $(".user_register").hide();
         $(".social_login").show();
-        $(".header_title").text('Login');
+        //$(".header_title").text('Login');
         return false;
     });
 });
@@ -59,7 +59,7 @@ $(function() {
         $(".social_login_client").hide();
         $(".user_register_client").show();
 
-        $(".header_title").text('Register');
+        //$(".header_title").text('Register');
         return false;
     });
 
@@ -69,7 +69,7 @@ $(function() {
         $(".user_register_client").hide();
         $(".social_login_client").show();
 
-        $(".header_title").text('Login');
+        //$(".header_title").text('Login');
         return false;
     });
 });
@@ -88,7 +88,7 @@ $(function() {
         $(".user_login_coiffeur").hide();
         $(".social_login_coiffeur").show();
 
-        $(".header_title").text('Login');
+        //$(".header_title").text('Login');
         return false;
     });
 });

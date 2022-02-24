@@ -27,6 +27,13 @@ public class AdminController {
 	
 	private HttpSession session;
 	
+	@GetMapping("/admin/profile")
+	public String profilePage(Model model) {
+		model.addAttribute("profilePage", true);
+		return "admin";
+		
+	}
+	
 	@RequestMapping(value = "/employee/add", method = RequestMethod.GET)
 	public String addEmployee(Model model, HttpServletRequest request) {
 		session = request.getSession(false);
@@ -37,10 +44,10 @@ public class AdminController {
 		return "admin";
 	}
 	
-	// display list of employees
+	
+	
 	@GetMapping("/employee/list")
 	public String listEmployee(Model model, HttpServletRequest request) {
-		
 		return findPaginated(model, request, 1, "idEmployee", "asc");
 	}
 	
@@ -53,11 +60,10 @@ public class AdminController {
 		session = request.getSession(false);
 		
 		User userAdmin = (User) session.getAttribute("user");
-		Employee admin = empService.findById(userAdmin.getEmp().getIdEmployee());
+		Employee admin = userAdmin.getEmp();
 		
 		Page<Employee> page = empService.findPaginated(pageNo, pageSize, sortField, sortDir, admin.getSalon());
 		List<Employee> listEmployees = page.getContent();
-		//List<Employee> list = empService.findBySalon(admin.getSalon());
 		
 		model.addAttribute("currentPage", pageNo);
 		model.addAttribute("totalPages", page.getTotalPages());
@@ -68,7 +74,6 @@ public class AdminController {
 		model.addAttribute("reverseSortDir", sortDir.equals("asc") ? "desc" : "asc");
 		
 		model.addAttribute("listEmployees", listEmployees);
-		//model.addAttribute("listEmployeeBySalon", list);
 		
 		model.addAttribute("user", session.getAttribute("user"));
 		model.addAttribute("listEmployeePage", true);

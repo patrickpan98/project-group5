@@ -5,8 +5,14 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Client</title>
-
+  
   <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
+ <!--
+ <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">-->
+  <link href="/css/client.css" rel="stylesheet" >
+  <link rel=" stylesheet"  href="/css/footer.css" >
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.4.0/css/font-awesome.min.css" rel="stylesheet" id="bootstrap-css">
+  
   
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
@@ -25,7 +31,7 @@
 
                     <div class="navbar-collapse collapse" id="mobile_menu">
                         <ul class="nav navbar-nav">
-                            <li class="active"><a href="#">Home</a></li>
+                            <li><a href="/login/client">Home</a></li>
                             <!--<li><a href="#" class="dropdown-toggle" data-toggle="dropdown">Employee<span class="caret"></span></a>
                                 <ul class="dropdown-menu">
                                     <li><a href="#"><span class="glyphicon glyphicon-plus"></span> Add an employee</a></li>
@@ -54,7 +60,7 @@
                             <!--<li><a href="#"><span class="glyphicon glyphicon-user"></span> Profile</a></li>-->
                             <li><a href="#" class="dropdown-toggle" data-toggle="dropdown"><span class="glyphicon glyphicon-menu-hamburger"></span><span class="caret"></span></a>
                                 <ul class="dropdown-menu">
-                                    <li><a href="#"><span class="glyphicon glyphicon-user"></span> My profile</a></li>
+                                    <li><a href="/client/profile"><span class="glyphicon glyphicon-user"></span> My profile</a></li>
                                     <!--<li><a href="#"><span class="glyphicon glyphicon-scissors"></span> My salon</a></li>-->
                                     <li><a href="/logout"><span class="glyphicon glyphicon-log-out"></span> Log out</a></li>
                                 </ul>
@@ -82,6 +88,201 @@
     <b th:if="${user}">
     	Hello <b th:utext="${user.client.firstName}"></b>
     </b>
+    
+    
+    
+    <div class="container" th:if="${galerie}" style="margin-bottom: 200px">
+        <h1 class="fw-light text-center text-lg-start mt-4 mb-0">Réserver votre RDV en ligne </h1>
+      
+        <hr class="mt-2 mb-5">
+      
+        <div class="row text-center text-lg-start">
+      
+          <div class="col-lg-3 col-md-4 col-6">
+            <a href="/salon/list?cityRequested=Paris" class="d-block mb-4 h-100">
+              <img class="img-fluid img-thumbnail " src="/images/paris.PNG" alt="">
+			</a>
+              <div class="mask" style="background-color: rgba(0, 0, 0, 0.4)">
+                <div class="d-flex justify-content-center align-items-center h-100">
+                  <p class="text-white mb-0">  <span>Coiffeurs à Paris</span> </p>
+                </div>
+              </div>
+             
+            
+          </div>
+          <div class="col-lg-3 col-md-4 col-6">
+            <a th:href="@{'/salon/list?cityRequested=Lyon'}" class="d-block mb-4 h-100">
+              <img class="img-fluid img-thumbnail " src="/images/lyon.PNG" alt="">
+              
+              <div class="mask" style="background-color: rgba(0, 0, 0, 0.4)">
+                <div class="d-flex justify-content-center align-items-center h-100">
+                  <p class="text-white mb-0">  <span>Coiffeurs à Lyon</span> </p>
+                </div>
+              </div>
+            </a>
+          </div>
+          <div class="col-lg-3 col-md-4 col-6">
+            <a th:href="@{'/salon/list?cityRequested=Marseille'}" class="d-block mb-4 h-100">
+              <img class="img-fluid img-thumbnail" src="/images/marseille.PNG" alt="">
+
+              <div class="mask" style="background-color: rgba(0, 0, 0, 0.4)">
+                <div class="d-flex justify-content-center align-items-center h-100">
+                  <p class="text-white mb-0">  <span>Coiffeurs à Marseille</span> </p>
+                </div>
+              </div>
+            </a>
+          </div>
+
+
+          <div class="col-lg-3 col-md-4 col-6">
+            <a th:href="@{'/salon/list?cityRequested=Bordeaux'}" class="d-block mb-4 h-100">
+              <img class="img-fluid img-thumbnail" src="/images/bordeaux.PNG" alt="">
+
+              <div class="mask" style="background-color: rgba(0, 0, 0, 0.4)">
+                <div class="d-flex justify-content-center align-items-center h-100">
+                  <p class="text-white mb-0">  <span>Coiffeurs à Bordeaux</span> </p>
+                </div>
+              </div>
+            </a>
+
+
+          </div>
+          <div class="col-lg-3 col-md-4 col-6">
+            <a th:href="@{'/salon/list?cityRequested=Nantes'}" class="d-block mb-4 h-100">
+              <img class="img-fluid img-thumbnail" src="/images/nantes.PNG" alt="">
+
+              <div class="mask" style="background-color: rgba(0, 0, 0, 0.4)">
+                <div class="d-flex justify-content-center align-items-center h-100">
+                  <p class="text-white mb-0">  <span>Coiffeurs à Nantes</span> </p>
+                </div>
+              </div>
+            </a>
+          </div>
+         
+        </div>
+      
+      </div>
+      
+      
+      
+      <!-- Liste des salons selon la ville -->
+      <div th:if="${listSalonPage}" >
+    	<div class="tab-container" style="margin-bottom: 200px">
+    		<label>List: salons located in <b th:utext="${cityRequested}"></b></label><br>
+			<table>
+				<tr>
+					<th><a
+						th:href="@{'/salon/list/page/' + ${currentPage} + '?sortField=idSalon&sortDir=' + ${reverseSortDir}}">
+							ID</a></th>
+					<th><a
+						th:href="@{'/salon/list/page/' + ${currentPage} + '?sortField=name&sortDir=' + ${reverseSortDir}}">
+							Name</a></th>
+					<th>Address</th>
+					<th>City</th>
+					<th>Postal code</th>
+					<th>Country</th>
+					<th>Action</th>
+				</tr>
+				<tr th:each="salon:${listSalons}">
+					<td th:utext="${salon.idSalon}"></td>
+					<td th:utext="${salon.name}"></td>
+					<td th:utext="${salon.address}"></td>
+					<td th:utext="${salon.city}"></td>
+					<td th:utext="${salon.postalCode}"></td>
+					<td th:utext="${salon.country}"></td>
+					<td><a th:href="@{'/rdv/list?salonRequested=' + ${salon.idSalon}}">Voir le salon</a></td>
+					
+				</tr>
+			</table>
+			<br>
+			<div th:if="${totalPages > 1}">
+				<div class="row col-sm-10">
+					<div class="col-sm-2">Total Rows: [[${totalItems}]]</div>
+					<div class="col-sm-5">
+						<span th:each="i: ${#numbers.sequence(1, totalPages)}"> <a
+							th:if="${currentPage != i}"
+							th:href="@{'/salon/list/page/' + ${i}+ '?sortField=' + ${sortField} + '&sortDir=' + ${sortDir}}">[[${i}]]</a>
+							<span th:unless="${currentPage != i}">[[${i}]]</span> &nbsp;
+							&nbsp;
+						</span>
+					</div>
+					<!--  
+				<div class = "col-sm-1">
+					<a th:if="${currentPage < totalPages}" th:href="@{'/employee/list/page/' + ${currentPage + 1}+ '?sortField=' + ${sortField} + '&sortDir=' + ${sortDir}}">Next</a>
+					<span th:unless="${currentPage < totalPages}">Next</span>
+				</div>
+				
+				 <div class="col-sm-1">
+    				<a th:if="${currentPage < totalPages}" th:href="@{'/employee/list/page/' + ${totalPages}+ '?sortField=' + ${sortField} + '&sortDir=' + ${sortDir}}">Last</a>
+					<span th:unless="${currentPage < totalPages}">Last</span>
+   				 </div> -->
+				</div>
+			</div>
+		</div>
+    </div>
+    
+    
+    
+    <!-- Liste des RDV selon le salon -->
+      <div th:if="${listRdvPage}">
+      	
+      	
+    	<div class="tab-container" style="margin-bottom: 200px">
+    		<label>Liste des RDV disponibles pour le salon : <b th:utext="${salonName}"></b></label><br>
+			<table>
+				<tr>
+					<!--  <th><a
+						th:href="@{'/rdv/list/page/' + ${currentPage} + '?sortField=id&sortDir=' + ${reverseSortDir}}">
+							ID</a></th>-->
+					<th>ID</th>
+					<th>Début</th>
+					<th>Fin</th>
+					<th>Prestation</th>
+					<th>Employe</th>
+					<th>Action</th>
+				</tr>
+				<tr th:each="rdv:${listRdv}">
+					<td th:utext="${rdv.id}"></td>
+					<td th:utext="${rdv.start}"></td>
+					<td th:utext="${rdv.end}"></td>
+					<td th:utext="${rdv.title}"></td>
+					<td th:utext="${rdv.emp.firstName}"></td>
+					<td><a href="#">Prendre RDV</a></td>
+					
+				</tr>
+			</table>
+			<br>
+			<div th:if="${totalPages > 1}">
+				<div class="row col-sm-10">
+					<div class="col-sm-2">Total Rows: [[${totalItems}]]</div>
+					<div class="col-sm-5">
+						<span th:each="i: ${#numbers.sequence(1, totalPages)}"> <a
+							th:if="${currentPage != i}"
+							th:href="@{'/rdv/list/page/' + ${i}+ '?sortField=' + ${sortField} + '&sortDir=' + ${sortDir}}">[[${i}]]</a>
+							<span th:unless="${currentPage != i}">[[${i}]]</span> &nbsp;
+							&nbsp;
+						</span>
+					</div>
+					<!--  
+				<div class = "col-sm-1">
+					<a th:if="${currentPage < totalPages}" th:href="@{'/employee/list/page/' + ${currentPage + 1}+ '?sortField=' + ${sortField} + '&sortDir=' + ${sortDir}}">Next</a>
+					<span th:unless="${currentPage < totalPages}">Next</span>
+				</div>
+				
+				 <div class="col-sm-1">
+    				<a th:if="${currentPage < totalPages}" th:href="@{'/employee/list/page/' + ${totalPages}+ '?sortField=' + ${sortField} + '&sortDir=' + ${sortDir}}">Last</a>
+					<span th:unless="${currentPage < totalPages}">Last</span>
+   				 </div> -->
+				</div>
+			</div>
+		</div>
+    </div>
+    
+    <div th:if="${profilePage}" style="margin-bottom: 200px">
+    	<div th:include="profile::profile"></div>
+    </div>
+    
+    <footer th:include="footer::footer"></footer>
 </body>
 
 </html>

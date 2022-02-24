@@ -37,10 +37,11 @@ public class LoginController {
 	public String adminLogin(Model model, @ModelAttribute("user") User user, HttpServletRequest request) {
 		
 		User u = userService.findByLoginAndPassword(user.getLogin(), user.getPassword());
-		if(u!=null && u.getEmp()!=null) {
+		if(u!=null && u.getEmp()!=null && u.getEmp().getTitle().equals("President")) {
 			session = request.getSession(true);
 			session.setAttribute("user", u);
 			model.addAttribute("user", session.getAttribute("user"));
+			
 			model.addAttribute("homePage", true);
 			//Initialisation pour le formulaire 'add employee'
 			model.addAttribute("emp", new Employee());
@@ -60,7 +61,26 @@ public class LoginController {
 			session = request.getSession(true);
 			session.setAttribute("user", u);
 			model.addAttribute("user", session.getAttribute("user"));
+			
+			model.addAttribute("galerie", true);
 			return "client";
+		}
+		else {
+			return "redirect:/";
+		}
+	}
+	
+	@RequestMapping(value = "/employee", method = RequestMethod.POST)
+	public String employeeLogin(Model model, @ModelAttribute("user") User user, HttpServletRequest request) {
+		
+		User u = userService.findByLoginAndPassword(user.getLogin(), user.getPassword());
+		if (u != null && u.getEmp() != null && (u.getEmp().getTitle().equals("Employee") || u.getEmp().getTitle().equals("Manager"))) {
+			session = request.getSession(true);
+			session.setAttribute("user", u);
+			model.addAttribute("user", session.getAttribute("user"));
+			
+			model.addAttribute("homePage", true);
+			return "coiffeur";
 		}
 		else {
 			return "redirect:/";
@@ -80,7 +100,15 @@ public class LoginController {
 	@RequestMapping(value = "/client", method = RequestMethod.GET)
 	public String clientLogin(Model model) {
 		model.addAttribute("user", session.getAttribute("user"));
+		model.addAttribute("galerie", true);
 		return "client";
+	}
+	
+	@RequestMapping(value = "/employee", method = RequestMethod.GET)
+	public String employeeLogin(Model model) {
+		model.addAttribute("user", session.getAttribute("user"));
+		model.addAttribute("homePage", true);
+		return "coiffeur";
 	}
 	
 }

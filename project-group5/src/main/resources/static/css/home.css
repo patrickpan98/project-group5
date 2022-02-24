@@ -50,7 +50,7 @@ h1 {
     border: 1px solid #DDD;
     border-radius: 4px;
     color: white;
-    background-color: black;
+    background-color: rgb(25, 25, 25);
 }
 
 #modal_trigger2 {
@@ -61,7 +61,7 @@ h1 {
     border: 1px solid #DDD;
     border-radius: 4px;
     color: white;
-    background-color: black;
+    background-color: rgb(25, 25, 25);
 }
 #modal_trigger3 {
     position:absolute;
@@ -71,13 +71,13 @@ h1 {
     border: 1px solid #DDD;
     border-radius: 4px;
     color: white;
-    background-color: black;
+    background-color: rgb(25, 25, 25);
 }
 
 .btn {
     padding: 10px 20px;
     /*background: #F4F4F2;*/
-    background: black;
+    background: rgb(25, 25, 25);
     color:white;
 }
 
@@ -125,7 +125,7 @@ a.btn_red {
 
 .popupHeader {
     /*background: #F4F4F2;*/
-    background: black;
+    background: rgb(25, 25, 25);
     color:white;
     position: relative;
     padding: 10px 20px;
@@ -142,7 +142,7 @@ a.btn_red {
     color: #aaa;*/
     cursor: pointer;
     font-size: 16px;
-    background: black;
+    background: rgb(25, 25, 25);
     color:white;
 }
 

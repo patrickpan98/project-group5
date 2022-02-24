@@ -21,7 +21,8 @@ public interface EmployeeService {
 	
 	List<Employee> findAll();
 	
-	//List<Employee> findBySalon(Salon salon);
+	
+	List<Employee> findBySalon(Salon salon);
 	
 	Page<Employee> findPaginated(int pageNo, int pageSize, String sortField, String sortDirection, Salon salon);
 	

@@ -35,11 +35,10 @@
 				<div class="user_register">
 					<form th:action="@{/addcalendar}" method="post">
 						<label for="emp">Choose an employee</label>
-						<select name="emp" id="emp" class="form-control">
-							<option value="1">EMP 1</option>
-							<option value="2">EMP 2</option>
-							<option value="3">EMP 3</option>
-							<option value="4">EMP 4</option>
+						
+						<select name="empId" id="emp" class="form-control">
+							<option th:each="emp:${listEmployeeBySalon}" th:value="${emp.idEmployee}"
+							th:utext="${emp.firstName}"></option>
 						</select>
 						<br>
 

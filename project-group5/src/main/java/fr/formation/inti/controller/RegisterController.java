@@ -44,7 +44,7 @@ public class RegisterController {
 	public String adminRegister(Model model, @ModelAttribute("salon") Salon salon, 
 			@RequestParam("firstName") String fname, @RequestParam("lastName") String lname,
 			@RequestParam("gender") String gender, @RequestParam("login") String login,
-			@RequestParam("password") String password, @RequestParam("sDate") String date) {
+			@RequestParam("password") String password, @RequestParam("sDate") String date, HttpServletRequest request) {
 		
 		Date startDate = null;
 		try {
@@ -52,13 +52,10 @@ public class RegisterController {
 		} catch (ParseException e) {
 			e.printStackTrace();
 		}
-//		Calendar c = Calendar.getInstance();
-//		c.setTime(startDate);
-//		c.add(Calendar.DAY_OF_MONTH, 1);
-//		startDate = c.getTime();
 		
 		User user = new User(login, password);
 		Employee emp = new Employee(gender, lname, fname);
+		emp.setTitle("President");
 		Salon salonToAdd = new Salon(salon.getName(), startDate, salon.getAddress(), salon.getCity(),
 				salon.getPostalCode(), salon.getCountry());
 		
@@ -70,7 +67,10 @@ public class RegisterController {
 		user.setEmp(emp);
 		userService.saveUser(user);
 		
-		model.addAttribute("user", user);
+		session = request.getSession(true);
+		session.setAttribute("user", user);
+		model.addAttribute("user", session.getAttribute("user"));
+		
 		model.addAttribute("homePage", true);
 		//Initialisation pour le formulaire 'add employee'
 		model.addAttribute("emp", new Employee());
@@ -80,7 +80,7 @@ public class RegisterController {
 	@RequestMapping(value = "/client", method = RequestMethod.POST)
 	public String clientRegister(Model model, @ModelAttribute("client") Client client,
 			@RequestParam("login") String login,
-			@RequestParam("password") String password, @RequestParam("date") String date) {
+			@RequestParam("password") String password, @RequestParam("date") String date, HttpServletRequest request) {
 		
 		Date birthDate = null;
 		try {
@@ -88,10 +88,6 @@ public class RegisterController {
 		} catch (ParseException e) {
 			e.printStackTrace();
 		}
-//		Calendar c = Calendar.getInstance();
-//		c.setTime(birthDate);
-//		c.add(Calendar.DAY_OF_MONTH, 1);
-//		birthDate = c.getTime();
 		
 		User user = new User(login, password);
 		Client clientToAdd = new Client(client.getGender(), client.getFirstName(), client.getFirstName(), birthDate);
@@ -101,8 +97,11 @@ public class RegisterController {
 		user.setClient(clientToAdd);
 		userService.saveUser(user);
 		
-		model.addAttribute("user", user);
+		session = request.getSession(true);
+		session.setAttribute("user", user);
+		model.addAttribute("user", session.getAttribute("user"));
 		
+		model.addAttribute("galerie", true);
 		return "client";
 	}
 	
@@ -119,10 +118,6 @@ public class RegisterController {
 		} catch (ParseException e) {
 			e.printStackTrace();
 		}
-//		Calendar c = Calendar.getInstance();
-//		c.setTime(birthDate);
-//		c.add(Calendar.DAY_OF_MONTH, 1);
-//		birthDate = c.getTime();
 		
 		User userToAdd = new User(emp.getFirstName().toLowerCase().charAt(0)+emp.getLastName().toLowerCase(), "abc123");
 		Employee empToAdd = new Employee(emp.getGender(), emp.getLastName(), emp.getFirstName());

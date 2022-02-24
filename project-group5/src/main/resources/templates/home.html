@@ -10,26 +10,28 @@
     <link href="/css/home.css" rel="stylesheet" id="bootstrap-css">
     <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:400,700,700italic,400italic" rel="stylesheet" id="bootstrap-css">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.4.0/css/font-awesome.min.css" rel="stylesheet" id="bootstrap-css">
-    <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
-
-
-    
+    <!-- <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css"> -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <link rel=" stylesheet"  href="/css/footer.css" >
 </head>
 
 <body>
+
+	<div th:include="headerHome::header"></div>
+	
     <div class="container">
         <img src="images/rizerva_neutre2.PNG" class="logo">
         <h1>Bienvenue sur Rizerva !</h1><br>
-        <h1>Qui êtes-vous ?</h1>
+        <h1>Se connecter ou s'enregistrer en tant que...</h1>
 
         <div class="row" style="margin-left: 100px;">
-          <div class="col">
-            <a id="modal_trigger1" href="#modal1" class="btn">Admin</a>
+          <div class="col-md-4">
+            <a id="modal_trigger1" href="#modal1" class="btn">Gérant</a>
           </div>
-          <div class="col">
+          <div class="col-md-4">
             <a id="modal_trigger2" href="#modal2" class="btn">Client</a>
           </div>
-          <div class="col">
+          <div class="col-md-4">
             <a id="modal_trigger3" href="#modal3" class="btn">Coiffeur</a>
           </div>
         </div>
@@ -66,19 +68,19 @@
                     </div>
     
                     <div class="action_btns">
-                        <div class="one_half"><a href="#" id="login_form" class="btn">Login</a></div>
-                        <div class="one_half last"><a href="#" id="register_form" class="btn">Sign up</a></div>
+                        <div class="one_half"><a href="#" id="login_form" class="btn">Se connecter</a></div>
+                        <div class="one_half last"><a href="#" id="register_form" class="btn">S'inscrire</a></div>
                     </div>
                 </div>
     
                 <!-- Login form -->
                 <div class="user_login">
                     <form th:action="@{/login/admin}" method="post" th:object="${user}">
-                        <label>Username</label>
+                        <label>Login</label>
                         <input type="text" class="form-control" th:field="*{login}"/>
                         <br />
     
-                        <label>Password</label>
+                        <label>Mot de passe</label>
                         <input type="password" class="form-control" th:field="*{password}"/>
                         <br />
     
@@ -89,70 +91,74 @@
                         </div>  -->
     
                         <div class="action_btns">
-                            <div class="one_half"><a href="#" class="btn back_btn"><i class="fa fa-angle-double-left"></i> Back</a></div>
+                            <div class="one_half">
+                            	<a href="#" class="btn back_btn"><i class="fa fa-angle-double-left"></i> Retour</a>
+                            </div>
                             
-                            <input type="submit" value="Login" class="one_half last btn btn_red">
+                            <input type="submit" value="Se connecter" class="one_half last btn btn_red">
+                            
                         </div>
                     </form>
     
-                    <a href="#" class="forgot_password">Forgot password?</a>
+                    <!--  <a href="#" class="forgot_password">Forgot password?</a>-->
                 </div>
+    
     
                 <!-- Register Form -->
                 <div class="user_register">
                     <form th:action="@{/register/admin}" method="post" th:object="${salon}">
                     	<div class="form-row">
                           <div class="form-group col-md-3">
-                            <label class="form-check-label">Gender</label>
+                            <label class="form-check-label">Genre</label>
                           </div>
                           <div class="form-group col-md-2">
                             <input class="form-check-input" type="radio" name="gender" id="exampleRadios1" value="Male" checked>
-                            <label class="form-check-label" for="exampleRadios1">Male</label>
+                            <label class="form-check-label" for="exampleRadios1">Homme</label>
                           </div>
                           <div class="form-group col-md-2">
                             <input class="form-check-input" type="radio" name="gender" id="exampleRadios2" value="Female">
-                            <label class="form-check-label" for="exampleRadios2">Female</label>
+                            <label class="form-check-label" for="exampleRadios2">Femme</label>
                           </div>
                         </div>
                         <div class="form-row">
                             <div class="form-group col-md-6">
-                              <label for="inputFirstname">First name</label>
+                              <label for="inputFirstname">Prénom</label>
                               <input type="text" class="form-control" id="inputFirstname" placeholder="First name" name="firstName">
                             </div>
                             <div class="form-group col-md-6">
-                              <label for="inputLastname">Last name</label>
+                              <label for="inputLastname">Nom</label>
                               <input type="text" class="form-control" id="inputLastname" placeholder="Last name" name="lastName">
                             </div>
                         </div>
                         <div class="form-row">
                           <div class="form-group col-md-6">
-                            <label for="inputEmail4">Username</label>
+                            <label for="inputEmail4">Login</label>
                             <input type="text" class="form-control" id="inputEmail4" placeholder="Username" name="login">
                           </div>
                           <div class="form-group col-md-6">
-                            <label for="inputPassword4">Password</label>
+                            <label for="inputPassword4">Mot de passe</label>
                             <input type="password" class="form-control" id="inputPassword4" placeholder="Password" name="password">
                           </div>
                         </div>
                         
                         <div class="form-row">
                             <div class="form-group col-md-6">
-                              <label for="inputSname">Salon name</label>
+                              <label for="inputSname">Nom du salon</label>
                               <input type="text" class="form-control" id="inputSname" placeholder="Salon name" th:field="*{name}">
                             </div>
                             <div class="form-group col-md-6">
-                              <label for="inputStartdate">Start date</label>
+                              <label for="inputStartdate">Début du salon</label>
                               <input type="date" class="form-control" id="inputStartdate" name="sDate">
                             </div>
                         </div>
                         
                         <div class="form-group">
-                          <label for="inputAddress">Address</label>
+                          <label for="inputAddress">Adresse du salon</label>
                           <input type="text" class="form-control" id="inputAddress" placeholder="Address" th:field="*{address}">
                         </div>
                         <div class="form-row">
                           <div class="form-group col-md-4">
-                            <label for="inputCity">City</label>
+                            <label for="inputCity">Ville</label>
                             <input type="text" class="form-control" id="inputCity" placeholder="City" th:field="*{city}">
                           </div>
                           <!-- <div class="form-group col-md-4">
@@ -163,11 +169,11 @@
                             </select>
                           </div>-->
                           <div class="form-group col-md-4">
-                            <label for="inputZip">Postal code</label>
+                            <label for="inputZip">Code postal</label>
                             <input type="text" class="form-control" id="inputZip" placeholder="Postal code" th:field="*{postalCode}">
                           </div>
                           <div class="form-group col-md-4">
-                            <label for="inputCountry">Country</label>
+                            <label for="inputCountry">Pays</label>
                             <input type="text" class="form-control" id="inputCountry" placeholder="Country" th:field="*{country}">
                           </div>
                         </div>
@@ -182,9 +188,12 @@
                         <!--
                         <button type="submit" class="btn btn-primary">Sign in</button>-->
                         <div class="action_btns">
-                            <div class="one_half"><a href="#" class="btn back_btn"><i class="fa fa-angle-double-left"></i> Back</a></div>
-                            <!--<div class="one_half last"><a href="#" class="btn btn_red">Add my salon</a></div>  -->
-                            <input type="submit" value="Add my salon" class="one_half last btn btn_red">
+                            <div class="one_half">
+                            	<a href="#" class="btn back_btn"><i class="fa fa-angle-double-left"></i> Retour</a>
+                            </div>
+                            
+                            <input type="submit" value="S'inscrire" class="one_half last btn btn_red">
+                            
                         </div>
                         
                     </form>
@@ -226,19 +235,19 @@
                     </div>
     
                     <div class="action_btns">
-                        <div class="one_half"><a href="#" id="login_form_client" class="btn">Login</a></div>
-                        <div class="one_half last"><a href="#" id="register_form_client" class="btn">Sign up</a></div>
+                        <div class="one_half"><a href="#" id="login_form_client" class="btn">Se connecter</a></div>
+                        <div class="one_half last"><a href="#" id="register_form_client" class="btn">S'inscrire</a></div>
                     </div>
                 </div>
     
                 <!-- Login form -->
                 <div class="user_login_client">
                     <form th:action="@{/login/client}" method="post" th:object="${user}">
-                        <label>Username</label>
+                        <label>Login</label>
                         <input type="text" class="form-control" th:field="*{login}"/>
                         <br />
     
-                        <label>Password</label>
+                        <label>Mot de passe</label>
                         <input type="password" class="form-control" th:field="*{password}"/>
                         <br />
     
@@ -250,13 +259,15 @@
                           -->
     
                         <div class="action_btns">
-                            <div class="one_half"><a href="#" class="btn back_btn_client"><i class="fa fa-angle-double-left"></i> Back</a></div>
+                            <div class="one_half">
+                            	<a href="#" class="btn back_btn_client"><i class="fa fa-angle-double-left"></i> Retour</a>
+                            </div>
                             
-                            <input type="submit" value="Login" class="one_half last btn btn_red">
+                            <input type="submit" value="Se connecter" class="one_half last btn btn_red">
+                            
                         </div>
                     </form>
     
-                    <a href="#" class="forgot_password">Forgot password?</a>
                 </div>
     
                 <!-- Register Form -->
@@ -290,40 +301,40 @@
                     <form th:action="@{/register/client}" method="post" th:object="${client}">
                         <div class="form-row">
                           <div class="form-group col-md-3">
-                            <label class="form-check-label">Gender</label>
+                            <label class="form-check-label">Genre</label>
                           </div>
                           <div class="form-group col-md-2">
                             <input class="form-check-input" type="radio" name="gender" id="exampleRadios1" value="Male" checked>
-                            <label class="form-check-label" for="exampleRadios1">Male</label>
+                            <label class="form-check-label" for="exampleRadios1">Homme</label>
                           </div>
                           <div class="form-group col-md-2">
                             <input class="form-check-input" type="radio" name="gender" id="exampleRadios2" value="Female">
-                            <label class="form-check-label" for="exampleRadios2">Female</label>
+                            <label class="form-check-label" for="exampleRadios2">Femme</label>
                           </div>
                         </div>
 
 
                         <div class="form-row">
                             <div class="form-group col-md-6">
-                              <label for="inputFirstname">First name</label>
+                              <label for="inputFirstname">Prénom</label>
                               <input type="text" class="form-control" id="inputFirstname" placeholder="First name" th:field="*{firstName}">
                             </div>
                             <div class="form-group col-md-6">
-                              <label for="inputLastname">Last name</label>
+                              <label for="inputLastname">Nom</label>
                               <input type="text" class="form-control" id="inputLastname" placeholder="Last name" th:field="*{lastName}">
                             </div>
                         </div>
                         <div class="form-group">
-                              <label for="inputBirthdate">Date of birth</label>
+                              <label for="inputBirthdate">Date de naissance</label>
                               <input type="date" class="form-control" id="inputBirthdate" name="date">
                         </div>
                         <div class="form-row">
                           <div class="form-group col-md-6">
-                            <label for="inputEmail4">Username</label>
+                            <label for="inputEmail4">Login</label>
                             <input type="text" class="form-control" id="inputEmail4" placeholder="Username" name="login">
                           </div>
                           <div class="form-group col-md-6">
-                            <label for="inputPassword4">Password</label>
+                            <label for="inputPassword4">Mot de passe</label>
                             <input type="password" class="form-control" id="inputPassword4" placeholder="Password" name="password">
                           </div>
                         </div>
@@ -339,9 +350,12 @@
                         <!--
                         <button type="submit" class="btn btn-primary">Sign in</button>-->
                         <div class="action_btns">
-                            <div class="one_half"><a href="#" class="btn back_btn_client"><i class="fa fa-angle-double-left"></i> Back</a></div>
+                            <div class="one_half">
+                            	<a href="#" class="btn back_btn_client"><i class="fa fa-angle-double-left"></i> Retour</a>
+                            </div>
                             
-                            <input type="submit" value="Register" class="one_half last btn btn_red">
+                            <input type="submit" value="S'inscrire" class="one_half last btn btn_red">
+                            
                         </div>
                     </form>
 
@@ -381,37 +395,38 @@
                     </div>
     
                     <div class="action_btns">
-                        <a href="#" id="login_form_coiffeur" class="btn">Login</a>
+                        <a href="#" id="login_form_coiffeur" class="btn">Se connecter</a>
                     </div>
                 </div>
     
-                <!-- Username & Password Login form -->
+                <!--Login form -->
                 <div class="user_login_coiffeur">
-                    <form>
-                        <label>Username</label>
-                        <input type="text" class="form-control"/>
+                    <form th:action="@{/login/employee}" method="post" th:object="${user}">
+                        <label>Login</label>
+                        <input type="text" class="form-control" th:field="*{login}">
                         <br />
     
-                        <label>Password</label>
-                        <input type="password" class="form-control"/>
+                        <label>Mot de passe</label>
+                        <input type="password" class="form-control" th:field="*{password}">
                         <br />
-    
-                        <!-- <div class="checkbox">
-                            <input id="remember" type="checkbox" />
-                            <label for="remember">Remember me on this computer</label>
-                        </div> -->
     
                         <div class="action_btns">
-                            <div class="one_half"><a href="#" class="btn back_btn_coiffeur"><i class="fa fa-angle-double-left"></i> Back</a></div>
-                            <div class="one_half last"><a href="#" class="btn btn_red">Login</a></div>
+                            <div class="one_half">
+                            	<a href="#" class="btn back_btn_coiffeur"><i class="fa fa-angle-double-left"></i> Retour</a>
+                            </div>
+                            
+                            <input type="submit" value="Se connecter" class="one_half last btn btn_red">
+                            
                         </div>
                     </form>
     
-                    <a href="#" class="forgot_password">Forgot password?</a>
+                    
                 </div>
             </section>
           </div>
       </div>
+      
+      <footer th:include="footer::footer"></footer>
       
 <script src="/js/home.js" async="true"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>

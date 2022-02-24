@@ -1,0 +1,52 @@
+/* Set the background color of body to tan
+body {
+    background-color: tan;
+  }
+  
+  /* On screens that are 992px or less, set the background color to blue */
+  /* @media screen and (max-width: 992px) {
+    body {
+      background-color: blue;
+    }
+  } */
+  
+  /* On screens that are 600px or less, set the background color to olive */
+  /* @media screen and (max-width: 600px) {
+    body {
+      background-color: olive;
+    }
+
+
+        .navbar a {
+          float: none;
+          width: 100%;
+        }
+      
+  } */ 
+
+  .img-thumbnail {
+      
+    /* display: block; */
+    width: 500px;
+    height: 200px;
+}
+
+
+
+table {
+	font-family: arial, sans-serif;
+	border-collapse: collapse;
+	width: 1000px;
+	margin: auto;
+	margin-top: 20px;
+}
+
+td, th {
+	border: 1px solid #dddddd;
+	text-align: left;
+	padding: 8px;
+}
+
+tr:nth-child(even) {
+	background-color: #dddddd;
+}

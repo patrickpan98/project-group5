@@ -55,6 +55,11 @@ public class EmployeeServiceImpl implements EmployeeService {
 	}
 
 	
+	/* ========================================== */
+	@Override
+	public List<Employee> findBySalon(Salon salon) {
+		return empDao.findBySalon(salon);
+	}
 	
 	@Override
 	public Page<Employee> findPaginated(int pageNo, int pageSize, String sortField, String sortDirection, Salon salon) {
@@ -66,5 +71,7 @@ public class EmployeeServiceImpl implements EmployeeService {
 		return empDao.findBySalon(salon, pageable);
 		
 	}
+
+	
 
 }
