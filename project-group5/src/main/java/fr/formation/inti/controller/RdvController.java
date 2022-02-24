@@ -27,7 +27,27 @@ public class RdvController {
 
 	@RequestMapping(value = "/calendar", method = RequestMethod.GET)
 	public String indexRdv(Model model) {
+		//Initialisation pour le formulaire '/addcalendar'
 		model.addAttribute("rdv", new RDV());
+		
+		// Load RDV
+		List<RDV> list = rdvService.findAll();
+		Integer size = list.size();
+		Integer[] listId = new Integer[size];
+		String[] listStart = new String[size];
+		String[] listEnd = new String[size];
+		String[] listTitle = new String[size];
+		for (int i = 0; i < size; i++) {
+			listId[i] = list.get(i).getId();
+			listStart[i] = list.get(i).getStart().format(formatter);
+			listEnd[i] = list.get(i).getEnd().format(formatter);
+			listTitle[i] = list.get(i).getTitle();
+		}
+		model.addAttribute("listId", listId);
+		model.addAttribute("listStart", listStart);
+		model.addAttribute("listEnd", listEnd);
+		model.addAttribute("listTitle", listTitle);
+		
 		return "fullcalendar";
 	}
 	
@@ -36,7 +56,7 @@ public class RdvController {
 			@RequestParam("start") @DateTimeFormat(pattern = "yyyy-MM-dd'T'HH:mm") LocalDateTime start, 
 			@RequestParam("end") @DateTimeFormat(pattern = "yyyy-MM-dd'T'HH:mm") LocalDateTime end) {
 
-		
+		//Create RDV
 		RDV rdvToAdd = new RDV();
 		rdvToAdd.setStart(start);
 		rdvToAdd.setEnd(end);
@@ -45,39 +65,28 @@ public class RdvController {
 		
 		rdvService.saveRDV(rdvToAdd);
 		
+		//Load RDV
 		List<RDV> list = rdvService.findAll();
 		Integer size = list.size();
-		
 		Integer[] listId = new Integer[size];
 		String[] listStart = new String[size];
 		String[] listEnd = new String[size];
 		String[] listTitle = new String[size];
-		
 		for (int i=0;i<size;i++) {
 			listId[i] = list.get(i).getId();
 			listStart[i] = list.get(i).getStart().format(formatter);
 			listEnd[i] = list.get(i).getEnd().format(formatter);
 			listTitle[i] = list.get(i).getTitle();
 		}
-		
 		model.addAttribute("listId", listId);
 		model.addAttribute("listStart", listStart);
 		model.addAttribute("listEnd", listEnd);
 		model.addAttribute("listTitle", listTitle);
+		
 		return "fullcalendar";
 	}
 	
-	@RequestMapping(value = "/addcalendar", method = RequestMethod.GET)
-	public String addRdvTest() {
-		
-		
-		RDV rdvToAdd = new RDV(LocalDateTime.now(), LocalDateTime.now(), "Available");
-		
-		rdvService.saveRDV(rdvToAdd);
-		
-		
-		return "fullcalendar";
-	}
+	
 	
 	
 }

@@ -30,6 +30,20 @@ public class Salon {
 		
 	}
 	
+	
+	
+	public Salon(String name, Date startDate, String address, String city, String postalCode, String country) {
+		super();
+		this.name = name;
+		this.startDate = startDate;
+		this.address = address;
+		this.city = city;
+		this.postalCode = postalCode;
+		this.country = country;
+	}
+
+
+
 	@Id
 	@GeneratedValue(strategy = IDENTITY)
 	@Column(name = " id_salon", unique= true, nullable= false)
@@ -51,7 +65,7 @@ public class Salon {
 	}
 	
 	@Temporal(TemporalType.DATE)
-	@Column(name = "start_date", nullable = false, length = 10)
+	@Column(name = "start_date", nullable = false)
 	public Date getStartDate() {
 		return startDate;
 	}

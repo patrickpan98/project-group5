@@ -18,4 +18,5 @@ public interface UserService {
 	
 	List<User> findAll();
 	
+	User findByLoginAndPassword(String login, String password);
 }

@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="https://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Admin</title>
+
+  
+  
+  <link href="/css/admin.css" rel="stylesheet" id="bootstrap-css">
+  <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:400,700,700italic,400italic" rel="stylesheet" id="bootstrap-css">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.4.0/css/font-awesome.min.css" rel="stylesheet" id="bootstrap-css">
+  <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
+  
+  
+  <!--<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>-->
+  
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+</head>
+
+<body> 
+    <div class="navbar navbar-inverse">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-lg-12">
+
+                    <div class="navbar-header">
+                        <button class="navbar-toggle" data-target="#mobile_menu" data-toggle="collapse"><span class="icon-bar"></span><span class="icon-bar"></span><span class="icon-bar"></span></button>
+                        <a href="#" class="navbar-brand">RIZERVA</a>
+                    </div>
+
+                    <div class="navbar-collapse collapse" id="mobile_menu">
+                        <ul class="nav navbar-nav">
+                            <li><a href="/login/admin">Home</a></li>
+                            
+                            <li><a href="#" class="dropdown-toggle" data-toggle="dropdown">Employee<span class="caret"></span></a>
+                                <ul class="dropdown-menu">
+                                    <li><a href="/employee/add"><span class="glyphicon glyphicon-plus"></span> Add an employee</a></li>
+                                    <li><a href="/employee/list"><span class="glyphicon glyphicon-th-list"></span> All employees</a></li>
+                                </ul>
+                            </li>
+
+                            <li><a href="#" class="dropdown-toggle" data-toggle="dropdown">Appointment<span class="caret"></span></a>
+                                <ul class="dropdown-menu">
+                                    <li><a href="/calendar"><span class="glyphicon glyphicon-plus"></span> Add availability</a></li>
+                                    <li><a href="#"><span class="glyphicon glyphicon-calendar"></span> Schedule</a></li>
+                                    
+                                </ul>
+                            </li>
+                            <!--
+                            <li><a href="#" class="dropdown-toggle" data-toggle="dropdown">Customer<span class="caret"></span></a>
+                                <ul class="dropdown-menu">
+                                    <li><a href="#">My appointments</a></li>
+                                    <li><a href="#">All customer accounts</a></li>
+                                </ul>
+                            </li>-->
+                        </ul>
+
+                        <ul class="nav navbar-nav navbar-right">
+                            <!--<li><a href="#"><span class="glyphicon glyphicon-user"></span> Profile</a></li>-->
+                            <li><a href="#" class="dropdown-toggle" data-toggle="dropdown"><span class="glyphicon glyphicon-menu-hamburger"></span><span class="caret"></span></a>
+                                <ul class="dropdown-menu">
+                                    <li><a href="#"><span class="glyphicon glyphicon-user"></span> My profile</a></li>
+                                    <li><a href="#"><span class="glyphicon glyphicon-scissors"></span> My salon</a></li>
+                                    <li><a href="/logout"><span class="glyphicon glyphicon-log-out"></span> Log out</a></li>
+                                </ul>
+                            </li>
+                        </ul>
+
+                        <ul class="nav navbar-nav navbar-right">
+                            <li>
+                                <form action="" class="navbar-form">
+                                    <div class="form-group">
+                                        <div class="input-group">
+                                            <input type="search" name="search" id="" placeholder="Search Anything Here..." class="form-control">
+                                            <span class="input-group-addon"><a href="#"><span class="glyphicon glyphicon-search"></span></a></span>
+                                        </div>
+                                    </div>
+                                </form>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+     <b th:if="${message}">
+    	<b style="color:red" th:utext="${message}"></b>
+    </b>
+    <br>
+    <i th:if="${user}">
+    	User: <i th:utext="${user.emp.firstName}"></i> <i th:utext="${user.emp.lastName}"></i>
+    </i>
+    <br><br>
+    
+    <div th:if="${homePage}">Home</div>
+    
+    <div th:if="${addEmployeePage}">
+    	
+    	<div class="form-container">
+    		<h4><b>Fill in the information of the new employee</b></h4><br>
+			<form th:action="@{/register/employee}" method="post" th:object="${emp}">
+				<div class="form-row">
+					<div class="form-group col-md-1">
+						<label class="form-check-label">Gender</label>
+					</div>
+					<div class="form-group col-md-2">
+						<input class="form-check-input" type="radio" name="gender" id="exampleRadios1" value="Male" checked>
+						<label class="form-check-label" for="exampleRadios1">Male</label>
+					</div>
+					<div class="form-group col-md-4">
+						<input class="form-check-input" type="radio" name="gender" id="exampleRadios2" value="Female">
+						<label class="form-check-label" for="exampleRadios2">Female</label>
+					</div>
+				</div>
+				
+				<div class="form-row">
+					<div class="form-group col-md-6">
+						<label for="inputFirstname">First name</label>
+						<input type="text" class="form-control" id="inputFirstname" placeholder="First name" th:field="*{firstName}">
+					</div>
+					<div class="form-group col-md-6">
+						<label for="inputLastname">Last name</label>
+						<input type="text" class="form-control" id="inputLastname" placeholder="Last name" th:field="*{lastName}">
+					</div>
+				</div>
+				
+				<div class="form-row">
+					<div class="form-group col-md-12">
+						<label for="inputBirthdate">Start date</label>
+						<input type="date" class="form-control" id="inputBirthdate" name="date">
+					</div>
+				</div>
+				<div class="form-row">
+					<div class="form-group col-md-6">
+						<label for="">Title</label>
+						<select id="title-name" class="form-control" th:field="*{title}">
+							<option value="">--Choose an option--</option>
+							<option value="Employee">Employee</option>
+							<option value="Manager">Manager</option>
+						</select>
+					</div>
+					<div class="form-group col-md-6">
+						<label for="">Category</label>
+						<select id="title-name" class="form-control" th:field="*{category}">
+							<option value="">--Choose an option--</option>
+							<option value="Hairdresser">Hairdresser</option>
+							<option value="Barber">Barber</option>
+							<option value="Manicure">Manicure</option>
+							<option value="Beauty">Beauty</option>
+						</select>
+					</div>
+				</div>
+
+				<div class="action_btns">
+					<a href="/login/admin" class="btn back_btn_client"><i class="fa fa-angle-double-left"></i> Back</a>
+					<input type="submit" value="Register" class="btn btn_red">
+				</div>
+			</form>
+		</div>
+
+	</div>
+    
+    <div th:if="${listEmployeePage}">
+    	<div class="tab-container">
+    		<label>Employees of the salon: <b th:utext="${user.emp.salon.name}"></b></label><br>
+			<table>
+				<tr>
+					<th><a
+						th:href="@{'/employee/list/page/' + ${currentPage} + '?sortField=idEmployee&sortDir=' + ${reverseSortDir}}">
+							ID</a></th>
+					<th>Gender</th>
+					<th><a
+						th:href="@{'/employee/list/page/' + ${currentPage} + '?sortField=firstName&sortDir=' + ${reverseSortDir}}">
+							First name</a></th>
+					<th><a
+						th:href="@{'/employee/list/page/' + ${currentPage} + '?sortField=lastName&sortDir=' + ${reverseSortDir}}">
+							Last name</a></th>
+
+					<th>Title</th>
+					<th>Category</th>
+					<th colspan="2">Actions</th>
+				</tr>
+				<tr th:each="emp:${listEmployees}">
+					<td th:utext="${emp.idEmployee}"></td>
+					<td th:utext="${emp.gender}"></td>
+					<td th:utext="${emp.firstName}"></td>
+					<td th:utext="${emp.lastName}"></td>
+					<td th:utext="${emp.title}"></td>
+					<td th:utext="${emp.category}"></td>
+					<td><a href="update?updateid=${emp.empID}">Update</a></td>
+					<td><a href="delete?deleteid=${emp.empID}"
+						onclick="return confirm('Voulez-vous vraiment supprimer ?')">Delete</a></td>
+				</tr>
+			</table>
+			<br>
+			<div th:if="${totalPages > 1}">
+				<div class="row col-sm-10">
+					<div class="col-sm-2">Total Rows: [[${totalItems}]]</div>
+					<div class="col-sm-5">
+						<span th:each="i: ${#numbers.sequence(1, totalPages)}"> <a
+							th:if="${currentPage != i}"
+							th:href="@{'/employee/list/page/' + ${i}+ '?sortField=' + ${sortField} + '&sortDir=' + ${sortDir}}">[[${i}]]</a>
+							<span th:unless="${currentPage != i}">[[${i}]]</span> &nbsp;
+							&nbsp;
+						</span>
+					</div>
+					<!--  
+				<div class = "col-sm-1">
+					<a th:if="${currentPage < totalPages}" th:href="@{'/employee/list/page/' + ${currentPage + 1}+ '?sortField=' + ${sortField} + '&sortDir=' + ${sortDir}}">Next</a>
+					<span th:unless="${currentPage < totalPages}">Next</span>
+				</div>
+				
+				 <div class="col-sm-1">
+    				<a th:if="${currentPage < totalPages}" th:href="@{'/employee/list/page/' + ${totalPages}+ '?sortField=' + ${sortField} + '&sortDir=' + ${sortDir}}">Last</a>
+					<span th:unless="${currentPage < totalPages}">Last</span>
+   				 </div> -->
+				</div>
+			</div>
+		</div>
+    </div>
+    
+    
+</body>
+
+</html>

@@ -33,6 +33,15 @@ public class Employee {
 		
 	}
 	
+	
+	public Employee(String gender, String lastName, String firstName) {
+		super();
+		this.gender = gender;
+		this.lastName = lastName;
+		this.firstName = firstName;
+	}
+
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "id_employee", unique = true, nullable = false)
@@ -70,7 +79,7 @@ public class Employee {
 	}
 	
 	@Temporal(TemporalType.DATE)
-	@Column(name = "start_date", nullable = false, length = 10)
+	@Column(name = "start_date", nullable = true)
 	public Date getStartDate() {
 		return startDate;
 	}

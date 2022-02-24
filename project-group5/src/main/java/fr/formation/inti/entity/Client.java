@@ -25,6 +25,19 @@ public class Client {
 	}
 	
 	
+	
+	
+	public Client(String gender, String firstName, String lastName, Date birthDay) {
+		super();
+		this.gender = gender;
+		this.firstName = firstName;
+		this.lastName = lastName;
+		this.birthDay = birthDay;
+	}
+
+
+
+
 	@Id
 	@GeneratedValue(strategy = IDENTITY)
 	@Column(name = "id_client", unique = true, nullable = false)

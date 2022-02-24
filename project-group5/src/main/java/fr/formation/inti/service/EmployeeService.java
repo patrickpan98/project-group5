@@ -2,7 +2,10 @@ package fr.formation.inti.service;
 
 import java.util.List;
 
+import org.springframework.data.domain.Page;
+
 import fr.formation.inti.entity.Employee;
+import fr.formation.inti.entity.Salon;
 
 public interface EmployeeService {
 
@@ -17,5 +20,9 @@ public interface EmployeeService {
 	Employee findById(Integer id);
 	
 	List<Employee> findAll();
+	
+	//List<Employee> findBySalon(Salon salon);
+	
+	Page<Employee> findPaginated(int pageNo, int pageSize, String sortField, String sortDirection, Salon salon);
 	
 }

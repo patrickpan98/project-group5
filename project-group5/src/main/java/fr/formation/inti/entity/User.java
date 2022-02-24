@@ -32,6 +32,16 @@ public class User {
 		
 	}
 	
+	
+	
+	public User(String login, String password) {
+		super();
+		this.login = login;
+		this.password = password;
+	}
+
+
+
 	@Id
 	@GeneratedValue(strategy = IDENTITY)
 	@Column(name = "id_user", unique = true, nullable = false)
