@@ -31,7 +31,7 @@
 
                     <div class="navbar-collapse collapse" id="mobile_menu">
                         <ul class="nav navbar-nav">
-                            <li><a href="/login/client">Home</a></li>
+                            <li><a href="/login/client">Accueil</a></li>
                             <!--<li><a href="#" class="dropdown-toggle" data-toggle="dropdown">Employee<span class="caret"></span></a>
                                 <ul class="dropdown-menu">
                                     <li><a href="#"><span class="glyphicon glyphicon-plus"></span> Add an employee</a></li>
@@ -40,10 +40,10 @@
                                 </ul>
                             </li>-->
 
-                            <li><a href="#" class="dropdown-toggle" data-toggle="dropdown">Manage my Appointment<span class="caret"></span></a>
+                            <li><a href="#" class="dropdown-toggle" data-toggle="dropdown">Rendez-vous<span class="caret"></span></a>
                                 <ul class="dropdown-menu">
-                                    <li><a href="#"><span class="glyphicon glyphicon-plus"></span> Add appointment</a></li>
-                                    <li><a href="#"><span class="glyphicon glyphicon-calendar"></span> My Schedule</a></li>
+                                    
+                                    <li><a href="/client/myrdv"><span class="glyphicon glyphicon-calendar"></span> Mes rendez-vous</a></li>
                                     
                                 </ul>
                             </li>
@@ -72,7 +72,7 @@
                                 <form action="" class="navbar-form">
                                     <div class="form-group">
                                         <div class="input-group">
-                                            <input type="search" name="search" id="" placeholder="Search Anything Here..." class="form-control">
+                                            <input type="search" name="search" id="" placeholder="Rechercher ici..." class="form-control">
                                             <span class="input-group-addon"><a href="#"><span class="glyphicon glyphicon-search"></span></a></span>
                                         </div>
                                     </div>
@@ -85,11 +85,12 @@
         </div>
     </div>
     
-    <b th:if="${user}">
-    	Hello <b th:utext="${user.client.firstName}"></b>
-    </b>
     
     
+    <i th:if="${user}">
+    	Utilisateur : <i th:utext="${user.client.firstName}"></i> <i th:utext="${user.client.lastName}"></i>
+    </i>
+    <br><br>
     
     <div class="container" th:if="${galerie}" style="margin-bottom: 200px">
         <h1 class="fw-light text-center text-lg-start mt-4 mb-0">Réserver votre RDV en ligne </h1>
@@ -113,50 +114,50 @@
           <div class="col-lg-3 col-md-4 col-6">
             <a th:href="@{'/salon/list?cityRequested=Lyon'}" class="d-block mb-4 h-100">
               <img class="img-fluid img-thumbnail " src="/images/lyon.PNG" alt="">
-              
+              </a>
               <div class="mask" style="background-color: rgba(0, 0, 0, 0.4)">
                 <div class="d-flex justify-content-center align-items-center h-100">
                   <p class="text-white mb-0">  <span>Coiffeurs à Lyon</span> </p>
                 </div>
               </div>
-            </a>
+            
           </div>
           <div class="col-lg-3 col-md-4 col-6">
             <a th:href="@{'/salon/list?cityRequested=Marseille'}" class="d-block mb-4 h-100">
               <img class="img-fluid img-thumbnail" src="/images/marseille.PNG" alt="">
-
+			</a>
               <div class="mask" style="background-color: rgba(0, 0, 0, 0.4)">
                 <div class="d-flex justify-content-center align-items-center h-100">
                   <p class="text-white mb-0">  <span>Coiffeurs à Marseille</span> </p>
                 </div>
               </div>
-            </a>
+            
           </div>
 
 
           <div class="col-lg-3 col-md-4 col-6">
             <a th:href="@{'/salon/list?cityRequested=Bordeaux'}" class="d-block mb-4 h-100">
               <img class="img-fluid img-thumbnail" src="/images/bordeaux.PNG" alt="">
-
+			</a>	
               <div class="mask" style="background-color: rgba(0, 0, 0, 0.4)">
                 <div class="d-flex justify-content-center align-items-center h-100">
                   <p class="text-white mb-0">  <span>Coiffeurs à Bordeaux</span> </p>
                 </div>
               </div>
-            </a>
+            
 
 
           </div>
           <div class="col-lg-3 col-md-4 col-6">
             <a th:href="@{'/salon/list?cityRequested=Nantes'}" class="d-block mb-4 h-100">
               <img class="img-fluid img-thumbnail" src="/images/nantes.PNG" alt="">
-
+			</a>
               <div class="mask" style="background-color: rgba(0, 0, 0, 0.4)">
                 <div class="d-flex justify-content-center align-items-center h-100">
                   <p class="text-white mb-0">  <span>Coiffeurs à Nantes</span> </p>
                 </div>
               </div>
-            </a>
+            
           </div>
          
         </div>
@@ -168,7 +169,7 @@
       <!-- Liste des salons selon la ville -->
       <div th:if="${listSalonPage}" >
     	<div class="tab-container" style="margin-bottom: 200px">
-    		<label>List: salons located in <b th:utext="${cityRequested}"></b></label><br>
+    		<label>Liste des salons situés à <b th:utext="${cityRequested}"></b></label><br>
 			<table>
 				<tr>
 					<th><a
@@ -176,11 +177,11 @@
 							ID</a></th>
 					<th><a
 						th:href="@{'/salon/list/page/' + ${currentPage} + '?sortField=name&sortDir=' + ${reverseSortDir}}">
-							Name</a></th>
-					<th>Address</th>
-					<th>City</th>
-					<th>Postal code</th>
-					<th>Country</th>
+							Nom</a></th>
+					<th>Adresse</th>
+					<th>Ville</th>
+					<th>Code postal</th>
+					<th>Pays</th>
 					<th>Action</th>
 				</tr>
 				<tr th:each="salon:${listSalons}">
@@ -190,14 +191,14 @@
 					<td th:utext="${salon.city}"></td>
 					<td th:utext="${salon.postalCode}"></td>
 					<td th:utext="${salon.country}"></td>
-					<td><a th:href="@{'/rdv/list?salonRequested=' + ${salon.idSalon}}">Voir le salon</a></td>
+					<td><a th:href="@{'/rdv/list?salonRequested=' + ${salon.idSalon}}">Disponibilités</a></td>
 					
 				</tr>
 			</table>
 			<br>
 			<div th:if="${totalPages > 1}">
 				<div class="row col-sm-10">
-					<div class="col-sm-2">Total Rows: [[${totalItems}]]</div>
+					<div class="col-sm-2">Nb lignes : [[${totalItems}]]</div>
 					<div class="col-sm-5">
 						<span th:each="i: ${#numbers.sequence(1, totalPages)}"> <a
 							th:if="${currentPage != i}"
@@ -237,8 +238,7 @@
 					<th>ID</th>
 					<th>Début</th>
 					<th>Fin</th>
-					<th>Prestation</th>
-					<th>Employe</th>
+					<th>Employé</th>
 					<th>Action</th>
 				</tr>
 				<tr th:each="rdv:${listRdv}">
@@ -246,15 +246,14 @@
 					<td th:utext="${rdv.start}"></td>
 					<td th:utext="${rdv.end}"></td>
 					<td th:utext="${rdv.title}"></td>
-					<td th:utext="${rdv.emp.firstName}"></td>
-					<td><a href="#">Prendre RDV</a></td>
+					<td><a th:href="@{'/addrdv?idrdv=' + ${rdv.id}}">Prendre RDV</a></td>
 					
 				</tr>
 			</table>
 			<br>
 			<div th:if="${totalPages > 1}">
 				<div class="row col-sm-10">
-					<div class="col-sm-2">Total Rows: [[${totalItems}]]</div>
+					<div class="col-sm-2">Nb lignes : [[${totalItems}]]</div>
 					<div class="col-sm-5">
 						<span th:each="i: ${#numbers.sequence(1, totalPages)}"> <a
 							th:if="${currentPage != i}"
@@ -277,6 +276,32 @@
 			</div>
 		</div>
     </div>
+    
+    
+    
+    <div th:if="${listMyRdvPage}">
+    	<div class="tab-container" style="margin-bottom: 200px">
+    		<label>Mes rendez-vous</label><br>
+			<table>
+				<tr>
+					<th>ID</th>
+					<th>Début</th>
+					<th>Fin</th>
+					<th>Employé</th>
+				</tr>
+				<tr th:each="rdv:${myRdv}">
+					<td th:utext="${rdv.id}"></td>
+					<td th:utext="${rdv.start}"></td>
+					<td th:utext="${rdv.end}"></td>
+					<td th:utext="${rdv.title}"></td>
+
+				</tr>
+			</table>
+		</div>
+    </div>
+    
+    
+    
     
     <div th:if="${profilePage}" style="margin-bottom: 200px">
     	<div th:include="profile::profile"></div>

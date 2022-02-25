@@ -132,7 +132,7 @@ public class RegisterController {
 		userToAdd.setEmp(empToAdd);
 		userService.saveUser(userToAdd);
 		
-		model.addAttribute("message", "Employee added to the database!");
+		model.addAttribute("message", "Employé ajouté dans la base de données !");
 		model.addAttribute("user", session.getAttribute("user"));
 		model.addAttribute("homePage", true);
 		return "admin";

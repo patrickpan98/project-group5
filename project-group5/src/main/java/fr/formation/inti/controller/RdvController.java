@@ -2,6 +2,7 @@ package fr.formation.inti.controller;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -47,16 +48,24 @@ public class RdvController {
 		
 		// Load RDV
 		List<RDV> list = rdvService.findAll();
-		Integer size = list.size();
+		
+		//Filtrer
+		List<RDV> listRdvSalon = new ArrayList<RDV>();
+		for (RDV r : list) {
+			if(r.getEmp()!=null && (r.getEmp().getSalon().getIdSalon()==userAdmin.getEmp().getSalon().getIdSalon()))
+					listRdvSalon.add(r);
+		}
+		
+		Integer size = listRdvSalon.size();
 		Integer[] listId = new Integer[size];
 		String[] listStart = new String[size];
 		String[] listEnd = new String[size];
 		String[] listTitle = new String[size];
 		for (int i = 0; i < size; i++) {
-			listId[i] = list.get(i).getId();
-			listStart[i] = list.get(i).getStart().format(formatter);
-			listEnd[i] = list.get(i).getEnd().format(formatter);
-			listTitle[i] = list.get(i).getTitle();
+			listId[i] = listRdvSalon.get(i).getId();
+			listStart[i] = listRdvSalon.get(i).getStart().format(formatter);
+			listEnd[i] = listRdvSalon.get(i).getEnd().format(formatter);
+			listTitle[i] = listRdvSalon.get(i).getTitle();
 		}
 		model.addAttribute("listId", listId);
 		model.addAttribute("listStart", listStart);
@@ -67,7 +76,7 @@ public class RdvController {
 	}
 	
 	@RequestMapping(value = "/addcalendar", method = RequestMethod.POST)
-	public String addRdv(Model model,
+	public String addRdv(Model model, @RequestParam("empId") Integer idEmployee,
 			@RequestParam("start") @DateTimeFormat(pattern = "yyyy-MM-dd'T'HH:mm") LocalDateTime start, 
 			@RequestParam("end") @DateTimeFormat(pattern = "yyyy-MM-dd'T'HH:mm") LocalDateTime end) {
 
@@ -78,25 +87,37 @@ public class RdvController {
 		
 		//Create RDV
 		RDV rdvToAdd = new RDV();
+		Employee emp = empService.findById(idEmployee);
 		rdvToAdd.setStart(start);
 		rdvToAdd.setEnd(end);
-		rdvToAdd.setTitle("Title RDV");
+		rdvToAdd.setTitle(emp.getFirstName().charAt(0)+". "+emp.getLastName());
 		rdvToAdd.setState("Available");
+		rdvToAdd.setEmp(emp);
 		
 		rdvService.saveRDV(rdvToAdd);
 		
 		//Load RDV
 		List<RDV> list = rdvService.findAll();
-		Integer size = list.size();
+		
+		// Filtrer
+		List<RDV> listRdvSalon = new ArrayList<RDV>();
+		for (RDV r : list) {
+			if (r.getEmp() != null
+					&& (r.getEmp().getSalon().getIdSalon() == userAdmin.getEmp().getSalon().getIdSalon()))
+				listRdvSalon.add(r);
+		}
+		
+		
+		Integer size = listRdvSalon.size();
 		Integer[] listId = new Integer[size];
 		String[] listStart = new String[size];
 		String[] listEnd = new String[size];
 		String[] listTitle = new String[size];
 		for (int i=0;i<size;i++) {
-			listId[i] = list.get(i).getId();
-			listStart[i] = list.get(i).getStart().format(formatter);
-			listEnd[i] = list.get(i).getEnd().format(formatter);
-			listTitle[i] = list.get(i).getTitle();
+			listId[i] = listRdvSalon.get(i).getId();
+			listStart[i] = listRdvSalon.get(i).getStart().format(formatter);
+			listEnd[i] = listRdvSalon.get(i).getEnd().format(formatter);
+			listTitle[i] = listRdvSalon.get(i).getTitle();
 		}
 		model.addAttribute("listId", listId);
 		model.addAttribute("listStart", listStart);

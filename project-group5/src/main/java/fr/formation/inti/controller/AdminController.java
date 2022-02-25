@@ -1,5 +1,6 @@
 package fr.formation.inti.controller;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -16,14 +17,19 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import fr.formation.inti.entity.Employee;
+import fr.formation.inti.entity.RDV;
 import fr.formation.inti.entity.User;
 import fr.formation.inti.service.EmployeeService;
+import fr.formation.inti.service.RdvService;
 
 @Controller
 public class AdminController {
 
 	@Autowired
 	EmployeeService empService;
+	
+	@Autowired
+	RdvService rdvService;
 	
 	private HttpSession session;
 	
@@ -80,6 +86,25 @@ public class AdminController {
 		//Initialisation pour le formulaire 'add employee'
 		model.addAttribute("emp", new Employee());
 		
+		return "admin";
+	}
+	
+	@RequestMapping(value = "/admin/myrdv", method=RequestMethod.GET)
+	public String myRdv(Model model, HttpServletRequest request) {
+		session = request.getSession(false);
+		User user = (User) session.getAttribute("user");
+		
+		List<RDV> listRdv = rdvService.findAll();
+		List<RDV> myRdv = new ArrayList<RDV>();
+
+		for (RDV r : listRdv) {
+			if (r.getEmp()!=null && r.getClient()!=null && (r.getEmp().getIdEmployee()==user.getEmp().getIdEmployee()))
+				myRdv.add(r);
+		}
+		
+		model.addAttribute("myRdv", myRdv);
+		model.addAttribute("user", session.getAttribute("user"));
+		model.addAttribute("listMyRdvPage", true);
 		return "admin";
 	}
 	

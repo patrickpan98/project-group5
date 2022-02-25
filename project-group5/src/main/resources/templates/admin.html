@@ -24,6 +24,7 @@
 </head>
 
 <body> 
+	<div th:fragment="headerAdmin">
     <div class="navbar navbar-inverse">
         <div class="container-fluid">
             <div class="row">
@@ -36,19 +37,19 @@
 
                     <div class="navbar-collapse collapse" id="mobile_menu">
                         <ul class="nav navbar-nav">
-                            <li><a href="/login/admin">Home</a></li>
+                            <li><a href="/login/admin">Accueil</a></li>
                             
-                            <li><a href="#" class="dropdown-toggle" data-toggle="dropdown">Employee<span class="caret"></span></a>
+                            <li><a href="#" class="dropdown-toggle" data-toggle="dropdown">Employé<span class="caret"></span></a>
                                 <ul class="dropdown-menu">
-                                    <li><a href="/employee/add"><span class="glyphicon glyphicon-plus"></span> Add an employee</a></li>
-                                    <li><a href="/employee/list"><span class="glyphicon glyphicon-th-list"></span> All employees</a></li>
+                                    <li><a href="/employee/add"><span class="glyphicon glyphicon-plus"></span> Ajouter un employé</a></li>
+                                    <li><a href="/employee/list"><span class="glyphicon glyphicon-th-list"></span> Liste des employés</a></li>
                                 </ul>
                             </li>
 
-                            <li><a href="#" class="dropdown-toggle" data-toggle="dropdown">Appointment<span class="caret"></span></a>
+                            <li><a href="#" class="dropdown-toggle" data-toggle="dropdown">Rendez-vous<span class="caret"></span></a>
                                 <ul class="dropdown-menu">
-                                    <li><a href="/calendar"><span class="glyphicon glyphicon-plus"></span> Add availability</a></li>
-                                    <li><a href="#"><span class="glyphicon glyphicon-calendar"></span> Schedule</a></li>
+                                    <li><a href="/calendar"><span class="glyphicon glyphicon-plus"></span> Ajouter des créneaux</a></li>
+                                    <li><a href="/admin/myrdv"><span class="glyphicon glyphicon-calendar"></span> Mes rendez-vous</a></li>
                                     
                                 </ul>
                             </li>
@@ -65,9 +66,9 @@
                             <!--<li><a href="#"><span class="glyphicon glyphicon-user"></span> Profile</a></li>-->
                             <li><a href="#" class="dropdown-toggle" data-toggle="dropdown"><span class="glyphicon glyphicon-menu-hamburger"></span><span class="caret"></span></a>
                                 <ul class="dropdown-menu">
-                                    <li><a href="/admin/profile"><span class="glyphicon glyphicon-user"></span> My profile</a></li>
-                                    <li><a href="#"><span class="glyphicon glyphicon-scissors"></span> My salon</a></li>
-                                    <li><a href="/logout"><span class="glyphicon glyphicon-log-out"></span> Log out</a></li>
+                                    <li><a href="/admin/profile"><span class="glyphicon glyphicon-user"></span> Mon profil</a></li>
+                                    <li><a href="#"><span class="glyphicon glyphicon-scissors"></span> Mon salon</a></li>
+                                    <li><a href="/logout"><span class="glyphicon glyphicon-log-out"></span> Se déconnecter</a></li>
                                 </ul>
                             </li>
                         </ul>
@@ -77,7 +78,7 @@
                                 <form action="" class="navbar-form">
                                     <div class="form-group">
                                         <div class="input-group">
-                                            <input type="search" name="search" id="" placeholder="Search Anything Here..." class="form-control">
+                                            <input type="search" name="search" id="" placeholder="Rechercher ici..." class="form-control">
                                             <span class="input-group-addon"><a href="#"><span class="glyphicon glyphicon-search"></span></a></span>
                                         </div>
                                     </div>
@@ -89,78 +90,106 @@
             </div>
         </div>
     </div>
+    </div>
     
      <b th:if="${message}">
     	<b style="color:red" th:utext="${message}"></b>
     </b>
     <br>
     <i th:if="${user}">
-    	User: <i th:utext="${user.emp.firstName}"></i> <i th:utext="${user.emp.lastName}"></i>
+    	Utilisateur : <i th:utext="${user.emp.firstName}"></i> <i th:utext="${user.emp.lastName}"></i>
     </i>
     <br><br>
     
-    <div th:if="${homePage}" style="margin-bottom: 500px">Home</div>
+    <div th:if="${homePage}" class="container" style="margin-bottom: 200px">
+		<hr class="mt-2 mb-5">
+
+		<div class="row text-center text-lg-start">
+
+			<div class="col-lg-3 col-md-4 col-6">
+				<img class="img-fluid img-thumbnail" src="/images/salon1.PNG" alt="">
+				<div class="mask" style="background-color: rgba(0, 0, 0, 0.4)">
+					<div class="d-flex justify-content-center align-items-center h-100">
+						<p class="text-white mb-0">
+							<span>Image salon</span>
+						</p>
+					</div>
+				</div>
+			</div>
+			
+			<div class="col-lg-3 col-md-4 col-6">
+				<img class="img-fluid img-thumbnail" src="/images/salon2.PNG" alt="" style="height:186px">
+				<div class="mask" style="background-color: rgba(0, 0, 0, 0.4)">
+					<div class="d-flex justify-content-center align-items-center h-100">
+						<p class="text-white mb-0">
+							<span>Image salon</span>
+						</p>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
     
     <div th:if="${addEmployeePage}" style="margin-bottom: 200px">
     	
     	<div class="form-container">
-    		<h4><b>Fill in the information of the new employee</b></h4><br>
+    		<h4><b>Remplir les informations de l'employé</b></h4><br>
 			<form th:action="@{/register/employee}" method="post" th:object="${emp}">
 				<div class="form-row">
 					<div class="form-group col-md-1">
-						<label class="form-check-label">Gender</label>
+						<label class="form-check-label">Genre</label>
 					</div>
 					<div class="form-group col-md-2">
 						<input class="form-check-input" type="radio" name="gender" id="exampleRadios1" value="Male" checked>
-						<label class="form-check-label" for="exampleRadios1">Male</label>
+						<label class="form-check-label" for="exampleRadios1">Homme</label>
 					</div>
 					<div class="form-group col-md-4">
 						<input class="form-check-input" type="radio" name="gender" id="exampleRadios2" value="Female">
-						<label class="form-check-label" for="exampleRadios2">Female</label>
+						<label class="form-check-label" for="exampleRadios2">Femme</label>
 					</div>
 				</div>
 				
 				<div class="form-row">
 					<div class="form-group col-md-6">
-						<label for="inputFirstname">First name</label>
+						<label for="inputFirstname">Prénom</label>
 						<input type="text" class="form-control" id="inputFirstname" placeholder="First name" th:field="*{firstName}">
 					</div>
 					<div class="form-group col-md-6">
-						<label for="inputLastname">Last name</label>
+						<label for="inputLastname">Nom</label>
 						<input type="text" class="form-control" id="inputLastname" placeholder="Last name" th:field="*{lastName}">
 					</div>
 				</div>
 				
 				<div class="form-row">
 					<div class="form-group col-md-12">
-						<label for="inputBirthdate">Start date</label>
+						<label for="inputBirthdate">Date de début</label>
 						<input type="date" class="form-control" id="inputBirthdate" name="date">
 					</div>
 				</div>
 				<div class="form-row">
 					<div class="form-group col-md-6">
-						<label for="">Title</label>
+						<label for="">Titre</label>
 						<select id="title-name" class="form-control" th:field="*{title}">
-							<option value="">--Choose an option--</option>
-							<option value="Employee">Employee</option>
+							<option value="">--Choisir une option--</option>
+							<option value="Employee">Employé</option>
 							<option value="Manager">Manager</option>
 						</select>
 					</div>
 					<div class="form-group col-md-6">
-						<label for="">Category</label>
+						<label for="">Catégorie</label>
 						<select id="title-name" class="form-control" th:field="*{category}">
-							<option value="">--Choose an option--</option>
-							<option value="Hairdresser">Hairdresser</option>
-							<option value="Barber">Barber</option>
-							<option value="Manicure">Manicure</option>
-							<option value="Beauty">Beauty</option>
+							<option value="">--Choisir une option--</option>
+							<option value="Hairdresser">Coiffeur</option>
+							<option value="Barber">Barbier</option>
+							<option value="Manicure">Manucure</option>
+							<option value="Beauty">Beauté</option>
 						</select>
 					</div>
 				</div>
 
 				<div class="action_btns">
-					<a href="/login/admin" class="btn back_btn_client"><i class="fa fa-angle-double-left"></i> Back</a>
-					<input type="submit" value="Register" class="btn btn_red">
+					<a href="/login/admin" class="btn back_btn_client"><i class="fa fa-angle-double-left"></i> Retour</a>
+					<input type="submit" value="Ajouter" class="btn btn_red">
 				</div>
 			</form>
 		</div>
@@ -169,22 +198,22 @@
     
     <div th:if="${listEmployeePage}" style="margin-bottom: 200px">
     	<div class="tab-container">
-    		<label>Employees of the salon: <b th:utext="${user.emp.salon.name}"></b></label><br>
+    		<label>Employés du salon : <b th:utext="${user.emp.salon.name}"></b></label><br>
 			<table>
 				<tr>
 					<th><a
 						th:href="@{'/employee/list/page/' + ${currentPage} + '?sortField=idEmployee&sortDir=' + ${reverseSortDir}}">
 							ID</a></th>
-					<th>Gender</th>
+					<th>Genre</th>
 					<th><a
 						th:href="@{'/employee/list/page/' + ${currentPage} + '?sortField=firstName&sortDir=' + ${reverseSortDir}}">
-							First name</a></th>
+							Prénom</a></th>
 					<th><a
 						th:href="@{'/employee/list/page/' + ${currentPage} + '?sortField=lastName&sortDir=' + ${reverseSortDir}}">
-							Last name</a></th>
+							Nom</a></th>
 
-					<th>Title</th>
-					<th>Category</th>
+					<th>Titre</th>
+					<th>Catégorie</th>
 					<th colspan="2">Actions</th>
 				</tr>
 				<tr th:each="emp:${listEmployees}">
@@ -194,15 +223,15 @@
 					<td th:utext="${emp.lastName}"></td>
 					<td th:utext="${emp.title}"></td>
 					<td th:utext="${emp.category}"></td>
-					<td><a href="update?updateid=${emp.empID}">Update</a></td>
-					<td><a href="delete?deleteid=${emp.empID}"
-						onclick="return confirm('Voulez-vous vraiment supprimer ?')">Delete</a></td>
+					<td><a href="#">Modifier</a></td>
+					<td><a href="#"
+						onclick="return confirm('Voulez-vous vraiment supprimer ?')">Supprimer</a></td>
 				</tr>
 			</table>
 			<br>
 			<div th:if="${totalPages > 1}">
 				<div class="row col-sm-10">
-					<div class="col-sm-2">Total Rows: [[${totalItems}]]</div>
+					<div class="col-sm-2">Nb lignes : [[${totalItems}]]</div>
 					<div class="col-sm-5">
 						<span th:each="i: ${#numbers.sequence(1, totalPages)}"> <a
 							th:if="${currentPage != i}"
@@ -226,9 +255,31 @@
 		</div>
     </div>
     
+    <div th:if="${listMyRdvPage}">
+    	<div class="tab-container" style="margin-bottom: 200px">
+    		<label>Mes rendez-vous</label><br>
+			<table>
+				<tr>
+					<th>ID</th>
+					<th>Début</th>
+					<th>Fin</th>
+					<th>Client</th>
+				</tr>
+				<tr th:each="rdv:${myRdv}">
+					<td th:utext="${rdv.id}"></td>
+					<td th:utext="${rdv.start}"></td>
+					<td th:utext="${rdv.end}"></td>
+					<td th:utext="${rdv.client.firstName + ' ' + rdv.client.lastName}"></td>
+
+				</tr>
+			</table>
+		</div>
+    </div>
+    
     <div th:if="${profilePage}" style="margin-bottom: 200px">
     	<div th:include="profile::profile"></div>
     </div>
+    
     
     <footer th:include="footer::footer"></footer>
 </body>

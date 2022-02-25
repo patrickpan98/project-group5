@@ -1,5 +1,6 @@
 package fr.formation.inti.controller;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -17,6 +18,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import fr.formation.inti.entity.RDV;
 import fr.formation.inti.entity.Salon;
+import fr.formation.inti.entity.User;
 import fr.formation.inti.service.RdvService;
 import fr.formation.inti.service.SalonService;
 
@@ -116,6 +118,52 @@ public class ClientController {
 		model.addAttribute("listRdvPage", true);
 		model.addAttribute("salonName", salonService.findById(idSalon).getName());
 		
+		return "client";
+	}
+	
+	
+	@RequestMapping(value = "/addrdv", method=RequestMethod.GET)
+	public String addRdv(Model model, HttpServletRequest request, @RequestParam("idrdv") Integer idRdv) {
+		session = request.getSession(false);
+		
+		User user = (User) session.getAttribute("user");
+		RDV rdv = rdvService.findById(idRdv);
+		
+		//Avant de setter, il faudrait vérifier le 'state' du rdv
+		rdv.setClient(user.getClient());
+		rdvService.updateRDV(rdv);
+		
+		List<RDV> listRdv = rdvService.findAll();
+		List<RDV> myRdv = new ArrayList<RDV>();
+		for (RDV r : listRdv) {
+			if (r.getClient()!=null && (r.getClient().getIdClient()==user.getClient().getIdClient()))
+				myRdv.add(r);
+		}
+		
+		model.addAttribute("myRdv", myRdv);
+		model.addAttribute("user", session.getAttribute("user"));
+		model.addAttribute("listMyRdvPage", true);
+		return "client";
+	}
+	
+	
+	@RequestMapping(value = "/client/myrdv", method=RequestMethod.GET)
+	public String myRdv(Model model, HttpServletRequest request) {
+		session = request.getSession(false);
+		User user = (User) session.getAttribute("user");
+		
+		List<RDV> listRdv = rdvService.findAll();
+		List<RDV> myRdv = new ArrayList<RDV>();
+		
+		
+		for (RDV r : listRdv) {
+			if (r.getClient()!=null && (r.getClient().getIdClient()==user.getClient().getIdClient()))
+				myRdv.add(r);
+		}
+		
+		model.addAttribute("myRdv", myRdv);
+		model.addAttribute("user", session.getAttribute("user"));
+		model.addAttribute("listMyRdvPage", true);
 		return "client";
 	}
 	
